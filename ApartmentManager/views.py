@@ -68,6 +68,36 @@ class SensorData(APIView):
         if not w_sensor:
             w_sensor = WaterSensor.objects.create()
         w_sensor.percentage = data
+        w_sensor.save()
 
         return Response({"status": "ok"}, status=200)
 
+
+class PumpView(APIView):
+    queryset = WaterSensor.objects.all()
+    permission_classes = [AllowAny]
+
+    def get(self, request, format=None):
+        w_sensor = WaterSensor.objects.first()
+
+        if not w_sensor:
+            w_sensor = WaterSensor.objects.create()
+            w_sensor.save()
+        
+        if w_sensor.pump_on:
+            pump_on = 1
+        else:
+            pump_on = 0
+        
+        return Response({"status": pump_on})
+    
+    def post(self, request, format=None):
+        w_sensor = WaterSensor.objects.first()
+
+        if not w_sensor:
+            w_sensor = WaterSensor.objects.create()
+        
+        w_sensor.pump_on = not w_sensor.pump_on
+        w_sensor.save()
+
+        return Response({"status": "ok"}, status=200)

@@ -40,3 +40,4 @@ class Notification(TimeStampMixin, models.Model):
 
 class WaterSensor(models.Model):
     percentage = models.CharField(max_length=150)
+    pump_on = models.BooleanField()

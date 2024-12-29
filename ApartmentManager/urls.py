@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UserApartmentView, RequestView, RequestCreateView, UserApartmentCreate, ApartmentsView, SensorData
+from .views import UserApartmentView, RequestView, RequestCreateView, UserApartmentCreate, ApartmentsView, SensorData, PumpView
 from .consumer import NoticicationConsumer
 
 urlpatterns = [
@@ -8,7 +8,8 @@ urlpatterns = [
     path('requests/', RequestView.as_view(), name='user-request'),
     path('requests/create', RequestCreateView.as_view(), name='request-creation'),
     path('', ApartmentsView.as_view(), name='get-apartments'),
-    path('sensor', SensorData.as_view(), name='water_sensor')
+    path('sensor', SensorData.as_view(), name='water_sensor'),
+    path('pump', PumpView.as_view(), name='pump-status'),
 ]
 
 websocket_urlpatterns = [
