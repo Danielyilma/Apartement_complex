@@ -85,11 +85,9 @@ class PumpView(APIView):
             w_sensor.save()
         
         if w_sensor.pump_on:
-            pump_on = 1
-        else:
-            pump_on = 0
+            return Response(status=400)
         
-        return Response({"status": pump_on})
+        return Response(status=200)
     
     def post(self, request, format=None):
         w_sensor = WaterSensor.objects.first()
