@@ -60,11 +60,14 @@ class StatusView(APIView):
         return Response(data)
 
 class SensorData(APIView):
-
+    queryset = WaterSensor.objects.all() 
     def get(self, request, format=None):
         data = request.query_params.get('data')
         w_sensor = WaterSensor.objects.first()
+
+        if not w_sensor:
+            w_sensor = WaterSensor.objects.create()
         w_sensor.percentage = data
 
-        return Response()
+        return Response({"status": "ok"}, status=200)
 
