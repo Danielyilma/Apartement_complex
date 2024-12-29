@@ -61,6 +61,8 @@ class StatusView(APIView):
 
 class SensorData(APIView):
     queryset = WaterSensor.objects.all() 
+    permission_classes = [AllowAny]
+
     def get(self, request, format=None):
         data = request.query_params.get('data')
         w_sensor = WaterSensor.objects.first()
@@ -72,6 +74,20 @@ class SensorData(APIView):
 
         return Response({"status": "ok"}, status=200)
 
+class WaterLevel(APIView):
+    queryset = WaterSensor.objects.all() 
+    permission_classes = [AllowAny]
+
+    def get(self, request, format=None):
+        w_sensor = WaterSensor.objects.first()
+
+        if not w_sensor:
+            w_sensor = WaterSensor.objects.create()
+            w_sensor.percentage = 0
+
+        level = w_sensor.percentage
+
+        return Response({"level": level}, status=200)
 
 class PumpView(APIView):
     queryset = WaterSensor.objects.all()
