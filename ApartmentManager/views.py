@@ -84,7 +84,7 @@ class PumpView(APIView):
             w_sensor = WaterSensor.objects.create()
             w_sensor.save()
         
-        if w_sensor.pump_on:
+        if not w_sensor.pump_on:
             return Response(status=400)
         
         return Response(status=200)
