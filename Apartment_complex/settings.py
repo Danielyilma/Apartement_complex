@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'UserAccountManager',
     'ApartmentManager',
     'rest_framework_simplejwt',
+    'channels',
 ]
 
 MIDDLEWARE = [
