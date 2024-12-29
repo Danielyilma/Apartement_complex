@@ -9,7 +9,7 @@ from ApartmentManager.urls import websocket_urlpatterns
 
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Appartement_complex.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Appartment_complex.settings')
 
 application = ProtocolTypeRouter({
     'http': get_asgi_application(),
