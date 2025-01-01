@@ -11,13 +11,12 @@ from UserAccountManager.models import User
 def send_notification(sender, instance, created, **kwargs):
     channel_layer = get_channel_layer()
     group_name = f'user_{instance.user.id}'
-    print("dddddddddddddddddddddddddddd", group_name)
     if created:
         async_to_sync(channel_layer.group_send)(
             group_name,
             {
                 'type': 'send_notification',
-                'message': f'request {instance.title} submited successfully'
+                'message': f'Request "{instance.title}" submitted successfully with status "{instance.status}".'
             }
         )
     else:
@@ -25,6 +24,6 @@ def send_notification(sender, instance, created, **kwargs):
             group_name,
             {
                 'type': 'send_notification',
-                'message': f'request {instance.title} submited successfully'
+                'message': f'Your request "{instance.title}" has been updated successfully to status "{instance.status}".'
             }
         )

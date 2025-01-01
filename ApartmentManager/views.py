@@ -84,10 +84,13 @@ class WaterLevel(APIView):
         if not w_sensor:
             w_sensor = WaterSensor.objects.create()
             w_sensor.percentage = 0
+        
+        data = {
+                "level":w_sensor.percentage,
+                "pump":w_sensor.pump_on
+        }
 
-        level = w_sensor.percentage
-
-        return Response({"level": level}, status=200)
+        return Response(data, status=200)
 
 class PumpView(APIView):
     queryset = WaterSensor.objects.all()
